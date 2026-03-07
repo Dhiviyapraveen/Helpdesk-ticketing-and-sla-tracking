@@ -1,0 +1,46 @@
+import axios from 'axios';
+
+const API_BASE = 'http://localhost:5001/api';
+
+const api = axios.create({
+  baseURL: API_BASE,
+  headers: { 'Content-Type': 'application/json' },
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+api.interceptors.response.use(
+  (res) => res,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
+export const authService = {
+  login: (data: { email: string; password: string }) => api.post('/auth/login', data),
+  register: (data: { name: string; email: string; password: string }) => api.post('/auth/register', data),
+};
+
+export const ticketService = {
+  getAll: () => api.get('/tickets'),
+  create: (data: { title: string; description: string; priority: string }) => api.post('/tickets', data),
+  update: (id: string, data: Record<string, unknown>) => api.put(`/tickets/${id}`, data),
+  delete: (id: string) => api.delete(`/tickets/${id}`),
+};
+
+export const adminService = {
+  getUsers: () => api.get('/admin/users'),
+};
+
+export default api;
