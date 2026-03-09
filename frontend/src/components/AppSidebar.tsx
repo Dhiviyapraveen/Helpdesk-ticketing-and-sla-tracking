@@ -12,14 +12,14 @@ const AppSidebar = () => {
   const location = useLocation();
   const { user } = useAuth();
 
-  /* ROLE BASED NAVIGATION */
+  
   let navItems:any[] = [];
 
   if (user?.role === "admin") {
 
     navItems = [
       { to: '/admin-dashboard', icon: LayoutDashboard, label: 'Admin Dashboard' },
-      { to: '/admin-tickets', icon: Ticket, label: 'All Tickets' },   // ✅ CHANGED
+      { to: '/admin-tickets', icon: Ticket, label: 'All Tickets' },   
       { to: '/admin', icon: Users, label: 'User Management' },
     ];
 
@@ -27,7 +27,7 @@ const AppSidebar = () => {
   else if (user?.role === "agent") {
 
     navItems = [
-      { to: '/agent-tickets', icon: Ticket, label: 'Assigned Tickets' }, // ✅ CHANGED
+      { to: '/agent-tickets', icon: Ticket, label: 'Assigned Tickets' }, 
     ];
 
   } 
@@ -35,7 +35,7 @@ const AppSidebar = () => {
 
     navItems = [
       { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-      { to: '/tickets', icon: Ticket, label: 'My Tickets' }, // user page
+      { to: '/tickets', icon: Ticket, label: 'My Tickets' }, 
     ];
 
   }
@@ -43,7 +43,7 @@ const AppSidebar = () => {
   const SidebarContent = () => (
     <div className="flex h-full flex-col">
 
-      {/* Logo */}
+      {}
       <div className="flex h-16 items-center gap-3 border-b border-sidebar-border px-4">
 
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground text-sm">
@@ -62,7 +62,7 @@ const AppSidebar = () => {
 
       </div>
 
-      {/* Navigation */}
+      {}
       <nav className="flex-1 space-y-1 p-3">
 
         {navItems.map((item) => {
@@ -92,7 +92,7 @@ const AppSidebar = () => {
 
       </nav>
 
-      {/* User Info */}
+      {}
       {!collapsed && user && (
 
         <div className="border-t border-sidebar-border p-4">
@@ -127,7 +127,7 @@ const AppSidebar = () => {
   return (
 
     <>
-      {/* Mobile Trigger */}
+      {}
       <button
         onClick={() => setMobileOpen(true)}
         className="fixed left-4 top-4 z-50 rounded-xl bg-card p-2 shadow-md lg:hidden"
@@ -135,7 +135,7 @@ const AppSidebar = () => {
         <Menu className="h-5 w-5 text-foreground" />
       </button>
 
-      {/* Mobile Sidebar */}
+      {}
       <AnimatePresence>
 
         {mobileOpen && (
@@ -173,7 +173,7 @@ const AppSidebar = () => {
 
       </AnimatePresence>
 
-      {/* Desktop Sidebar */}
+      {}
       <aside
         className={`hidden lg:flex h-screen flex-col border-r border-sidebar-border bg-sidebar transition-all duration-300 ${
           collapsed ? 'w-[68px]' : 'w-[240px]'

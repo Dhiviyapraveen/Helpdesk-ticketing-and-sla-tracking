@@ -15,7 +15,7 @@ interface TicketItem {
 const AdminTickets = () => {
   const [tickets, setTickets] = useState<TicketItem[]>([]);
   const [agents, setAgents] = useState<{ _id: string; name: string }[]>([]);
-  const [assigning, setAssigning] = useState<string | null>(null); // ticket being assigned
+  const [assigning, setAssigning] = useState<string | null>(null); 
 
   const fetchTickets = () => {
     adminService.getAllTickets()

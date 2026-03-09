@@ -18,9 +18,8 @@ import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
 
-/* Protected Route */
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 
+const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const { user, isLoading } = useAuth();
 
   if (isLoading) return null;
@@ -32,9 +31,8 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   return children;
 };
 
-/* Admin Only Route */
-const AdminRoute = ({ children }: { children: JSX.Element }) => {
 
+const AdminRoute = ({ children }: { children: JSX.Element }) => {
   const { user, isLoading } = useAuth();
 
   if (isLoading) return null;
@@ -50,14 +48,51 @@ const AdminRoute = ({ children }: { children: JSX.Element }) => {
   return children;
 };
 
-const AppRoutes = () => {
 
+const AgentRoute = ({ children }: { children: JSX.Element }) => {
+  const { user, isLoading } = useAuth();
+
+  if (isLoading) return null;
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (user.role !== "agent") {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return children;
+};
+
+
+const UserRoute = ({ children }: { children: JSX.Element }) => {
+  const { user, isLoading } = useAuth();
+
+  if (isLoading) return null;
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (user.role !== "user") {
+    return (
+      <Navigate
+        to={user.role === "admin" ? "/admin-dashboard" : "/agent-tickets"}
+        replace
+      />
+    );
+  }
+
+  return children;
+};
+
+const AppRoutes = () => {
   const { user, isLoading } = useAuth();
 
   if (isLoading) return null;
 
   const getHomeRoute = () => {
-
     if (!user) return "/login";
 
     if (user.role === "admin") return "/admin-dashboard";
@@ -70,22 +105,23 @@ const AppRoutes = () => {
   return (
     <Routes>
 
-      {/* Root */}
       <Route path="/" element={<Navigate to={getHomeRoute()} replace />} />
 
-      {/* Login */}
+
       <Route
         path="/login"
         element={!user ? <Login /> : <Navigate to={getHomeRoute()} replace />}
       />
 
-      {/* Register */}
+
       <Route
         path="/register"
-        element={!user ? <Register /> : <Navigate to={getHomeRoute()} replace />}
+        element={
+          !user ? <Register /> : <Navigate to={getHomeRoute()} replace />
+        }
       />
 
-      {/* Protected Layout */}
+
       <Route
         element={
           <ProtectedRoute>
@@ -94,16 +130,36 @@ const AppRoutes = () => {
         }
       >
 
-        {/* User Dashboard */}
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <UserRoute>
+              <Dashboard />
+            </UserRoute>
+          }
+        />
 
-        {/* User Tickets */}
-        <Route path="/tickets" element={<UserTickets />} />
 
-        {/* Agent Tickets */}
-        <Route path="/agent-tickets" element={<AgentTickets />} />
+        <Route
+          path="/tickets"
+          element={
+            <UserRoute>
+              <UserTickets />
+            </UserRoute>
+          }
+        />
 
-        {/* Admin Tickets */}
+
+        <Route
+          path="/agent-tickets"
+          element={
+            <AgentRoute>
+              <AgentTickets />
+            </AgentRoute>
+          }
+        />
+
+
         <Route
           path="/admin-tickets"
           element={
@@ -113,7 +169,7 @@ const AppRoutes = () => {
           }
         />
 
-        {/* Admin Dashboard */}
+
         <Route
           path="/admin-dashboard"
           element={
@@ -123,7 +179,7 @@ const AppRoutes = () => {
           }
         />
 
-        {/* Admin User Management */}
+
         <Route
           path="/admin"
           element={
@@ -132,37 +188,27 @@ const AppRoutes = () => {
             </AdminRoute>
           }
         />
-
       </Route>
 
-      {/* Not Found */}
-      <Route path="*" element={<NotFound />} />
 
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-
     <TooltipProvider>
-
       <Toaster />
 
       <Sonner />
 
       <BrowserRouter>
-
         <AuthProvider>
-
           <AppRoutes />
-
         </AuthProvider>
-
       </BrowserRouter>
-
     </TooltipProvider>
-
   </QueryClientProvider>
 );
 

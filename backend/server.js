@@ -23,18 +23,16 @@ app.use(express.json());
 
 // ✅ Create default admin
 const createAdmin = async () => {
-
   const admin = await User.findOne({ email: "admin@gmail.com" });
 
   if (!admin) {
-
     const hashedPassword = await bcrypt.hash("admin123", 10);
 
     await User.create({
       name: "Admin",
       email: "admin@gmail.com",
       password: hashedPassword,
-      role: "admin"
+      role: "admin",
     });
 
     console.log("Default admin created");
@@ -52,6 +50,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/tickets", require("./routes/ticketRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
+app.use("/api/agent", require("./routes/agentRoutes"));
 
 const PORT = process.env.PORT || 5000;
 

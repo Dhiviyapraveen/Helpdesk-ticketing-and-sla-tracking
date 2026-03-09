@@ -118,7 +118,7 @@ const Tickets = () => {
         </button>
       </motion.div>
 
-      {/* Filters */}
+      {}
       <div className="mb-4 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -139,7 +139,7 @@ const Tickets = () => {
         </div>
       </div>
 
-      {/* Table */}
+      {}
       {loading ? <LoadingSpinner /> : filtered.length === 0 ? (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-12 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-muted"><Ticket className="h-8 w-8 text-muted-foreground" /></div>
@@ -186,7 +186,7 @@ const Tickets = () => {
         </div>
       )}
 
-      {/* Create Modal */}
+      {}
       <Modal isOpen={createOpen} onClose={() => setCreateOpen(false)} title="Create Ticket">
         <form onSubmit={handleCreate} className="space-y-4">
           <div>
@@ -207,7 +207,7 @@ const Tickets = () => {
         </form>
       </Modal>
 
-      {/* Edit Modal */}
+      {}
       <Modal isOpen={editOpen} onClose={() => setEditOpen(false)} title="Edit Ticket">
         <form onSubmit={handleEdit} className="space-y-4">
           <div>
@@ -236,7 +236,7 @@ const Tickets = () => {
         </form>
       </Modal>
 
-      {/* Delete Confirmation */}
+      {}
       <Modal isOpen={deleteOpen} onClose={() => setDeleteOpen(false)} title="Delete Ticket">
         <p className="mb-6 text-sm text-muted-foreground">Are you sure you want to delete "<span className="font-medium text-foreground">{selected?.title}</span>"? This action cannot be undone.</p>
         <div className="flex gap-3">
