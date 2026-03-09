@@ -21,12 +21,18 @@ const AdminDashboard = () => {
   }, []);
 
   const totalTickets = tickets.length;
-  const openTickets = tickets.filter(t => t.status === "Open").length;
-  const closedTickets = tickets.filter(t => t.status === "Closed").length;
+
+  const openTickets = tickets.filter(
+    (t) => t.status === "Open"
+  ).length;
+
+  const closedTickets = tickets.filter(
+    (t) => t.status === "Closed"
+  ).length;
+
   const totalUsers = users.length;
 
   return (
-
     <div className="mx-auto max-w-6xl">
 
       <h1 className="text-2xl font-bold mb-6">

@@ -12,14 +12,14 @@ const AppSidebar = () => {
   const location = useLocation();
   const { user } = useAuth();
 
-  /* ✅ ROLE BASED NAVIGATION */
-  let navItems = [];
+  /* ROLE BASED NAVIGATION */
+  let navItems:any[] = [];
 
   if (user?.role === "admin") {
 
     navItems = [
       { to: '/admin-dashboard', icon: LayoutDashboard, label: 'Admin Dashboard' },
-      { to: '/tickets', icon: Ticket, label: 'All Tickets' },
+      { to: '/admin-tickets', icon: Ticket, label: 'All Tickets' },   // ✅ CHANGED
       { to: '/admin', icon: Users, label: 'User Management' },
     ];
 
@@ -27,7 +27,7 @@ const AppSidebar = () => {
   else if (user?.role === "agent") {
 
     navItems = [
-      { to: '/tickets', icon: Ticket, label: 'Assigned Tickets' },
+      { to: '/agent-tickets', icon: Ticket, label: 'Assigned Tickets' }, // ✅ CHANGED
     ];
 
   } 
@@ -35,7 +35,7 @@ const AppSidebar = () => {
 
     navItems = [
       { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-      { to: '/tickets', icon: Ticket, label: 'My Tickets' },
+      { to: '/tickets', icon: Ticket, label: 'My Tickets' }, // user page
     ];
 
   }

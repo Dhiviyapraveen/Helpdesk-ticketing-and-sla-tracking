@@ -15,12 +15,30 @@ exports.createTicket = async (req, res) => {
   res.json(ticket);
 };
 
+/* ROLE BASED TICKETS */
 exports.getTickets = async (req, res) => {
-  const tickets = await Ticket.find().populate("createdBy assignedTo");
+
+  let tickets;
+
+  if (req.user.role === "admin") {
+    tickets = await Ticket.find().populate("createdBy assignedTo");
+  }
+
+  else if (req.user.role === "agent") {
+    tickets = await Ticket.find({ assignedTo: req.user.id })
+      .populate("createdBy assignedTo");
+  }
+
+  else {
+    tickets = await Ticket.find({ createdBy: req.user.id })
+      .populate("createdBy assignedTo");
+  }
+
   res.json(tickets);
 };
 
 exports.updateStatus = async (req, res) => {
+
   const ticket = await Ticket.findById(req.params.id);
 
   ticket.status = req.body.status;
@@ -30,10 +48,12 @@ exports.updateStatus = async (req, res) => {
   }
 
   await ticket.save();
+
   res.json(ticket);
 };
 
 exports.addComment = async (req, res) => {
+
   const ticket = await Ticket.findById(req.params.id);
 
   ticket.comments.push({
@@ -42,5 +62,6 @@ exports.addComment = async (req, res) => {
   });
 
   await ticket.save();
+
   res.json(ticket);
 };

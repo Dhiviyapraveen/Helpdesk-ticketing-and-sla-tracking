@@ -1,10 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const protect = require("../middleware/authMiddleware");
-const authorize = require("../middleware/roleMiddleware");
-const { assignTicket, dashboard } = require("../controllers/adminController");
 
-router.put("/assign/:id", protect, authorize("admin"), assignTicket);
-router.get("/dashboard", protect, authorize("admin"), dashboard);
+const {
+  assignTicket,
+  dashboard,
+  getUsers,
+  getAgents
+} = require("../controllers/adminController");
+
+router.get("/users", getUsers);
+router.get("/agents", getAgents);
+router.put("/assign/:id", assignTicket);
+router.get("/dashboard", dashboard);
 
 module.exports = router;

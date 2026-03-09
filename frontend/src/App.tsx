@@ -9,7 +9,9 @@ import MainLayout from "@/layouts/MainLayout";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Dashboard from "@/pages/Dashboard";
-import Tickets from "@/pages/Tickets";
+import UserTickets from "@/pages/Tickets";
+import AgentTickets from "@/pages/AgentTickets";
+import AdminTickets from "@/pages/AdminTickets";
 import Admin from "@/pages/Admin";
 import AdminDashboard from "@/pages/AdminDashboard";
 import NotFound from "@/pages/NotFound";
@@ -60,7 +62,7 @@ const AppRoutes = () => {
 
     if (user.role === "admin") return "/admin-dashboard";
 
-    if (user.role === "agent") return "/tickets";
+    if (user.role === "agent") return "/agent-tickets";
 
     return "/dashboard";
   };
@@ -95,8 +97,21 @@ const AppRoutes = () => {
         {/* User Dashboard */}
         <Route path="/dashboard" element={<Dashboard />} />
 
-        {/* Tickets */}
-        <Route path="/tickets" element={<Tickets />} />
+        {/* User Tickets */}
+        <Route path="/tickets" element={<UserTickets />} />
+
+        {/* Agent Tickets */}
+        <Route path="/agent-tickets" element={<AgentTickets />} />
+
+        {/* Admin Tickets */}
+        <Route
+          path="/admin-tickets"
+          element={
+            <AdminRoute>
+              <AdminTickets />
+            </AdminRoute>
+          }
+        />
 
         {/* Admin Dashboard */}
         <Route
