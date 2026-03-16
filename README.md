@@ -70,7 +70,7 @@ A modern **Helpdesk Ticket Management System** built to manage support requests,
 
 This platform enables **users, agents, and administrators** to collaborate efficiently to resolve issues and maintain service quality.
 
----
+
 
 ## 🚀 Project Overview
 
@@ -82,7 +82,7 @@ The Helpdesk & SLA Tracking System is designed to:
 • Track SLA status for service quality monitoring  
 • Provide a structured workflow for ticket management  
 
----
+
 
 ## ✨ Features
 
@@ -109,7 +109,7 @@ The Helpdesk & SLA Tracking System is designed to:
 - SLA monitoring
 - Service response tracking
 
----
+
 
 ## 🛠️ Tech Stack
 
@@ -131,7 +131,7 @@ ShadCN UI
 React Hooks  
 REST APIs  
 
----
+
 
 ## 📂 Project Structure
 
@@ -155,14 +155,13 @@ helpdesk-sla-system
 │
 └── README.md
 
----
 
-## ⚙️ Installation
+
 ## ⚙️ Installation
 
 1. Clone the repository
 
-git clone https://github.com/your-username/helpdesk-sla-system.git
+git clone https://github.com/Dhiviyapraveen/Helpdesk-ticketing-and-sla-tracking.git
 
 2. Navigate to the project folder
 
